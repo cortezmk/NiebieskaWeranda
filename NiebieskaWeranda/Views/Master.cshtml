@@ -1,0 +1,228 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>Single Item | Unify - Responsive Website Template</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Web Fonts -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="~/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+
+    <!-- CSS Header and Footer -->
+    <link rel="stylesheet" href="~/assets/css/headers/header-v6.css">
+    <link rel="stylesheet" href="~/assets/css/footers/footer-v1.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="~/assets/plugins/animate.css">
+    <link rel="stylesheet" href="~/assets/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="~/assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css">
+	<link rel="stylesheet" href="~/assets/css/theme-colors/blue.css" />
+	<link rel="stylesheet" href="~/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
+	<link rel="stylesheet" href="~/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+    <link rel="stylesheet" href="~/assets/css/jquery.calendar.css">
+</head>
+
+<body class="header-fixed" style="visibility: hidden">
+<div class="wrapper">
+    <!--=== Header v6 ===-->
+    <div class="header-v6 header-sticky header-fixed-shrink">
+        <!-- Navbar -->
+        <div class="navbar mega-menu" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="menu-container">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!-- Navbar Brand -->
+                    <div class="navbar-brand">
+                        <a href="~/">
+                            <img class="default-logo" src="~/assets/img/logo3-light.png" alt="Logo">
+                            <img class="shrink-logo" src="~/assets/img/logo3-dark.png" alt="Logo">
+                        </a>
+                    </div>
+                    <!-- ENd Navbar Brand -->
+                </div>
+					
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-responsive-collapse">
+                    <div class="menu-container">
+                        <ul class="nav navbar-nav">
+							@{
+								var selection = @Umbraco.Content(1076).Children;
+							}
+							@foreach(var item in selection){
+								<li class='@(item.IsAncestorOrSelf((Umbraco.Core.Models.IPublishedContent)CurrentPage) ? "dropdown active" : "dropdown")'>
+									<a href="@item.Url" class="dropdown-toggle">
+										@item.Name
+									</a>
+								</li>
+							}
+                        </ul>
+                    </div>
+                </div><!--/navbar-collapse-->
+            </div>
+        </div>
+        <!-- End Navbar -->
+    </div>
+    <!--=== End Header v6 ===-->
+
+    <!--=== Breadcrumbs v3 ===-->
+    <div class="breadcrumbs-v3 img-v1" style='height:100px;background-image:url("@Url.Content("~/"+Umbraco.Content(1076).GetCropUrl("baner", "baner"))");margin-top:70px'>
+        <div class="container text-center">
+            <h1 class="breadcrumbs-v3-header">@CurrentPage.Name</h1>
+        </div><!--/end container-->
+    </div>
+    <!--=== End Breadcrumbs v3 ===-->
+
+    @RenderBody()
+
+     <!--=== Footer Version 1 ===-->
+    <div class="footer-v1">
+        <div class="footer" style="display: none">
+            <div class="container">
+                <div class="row">
+                    <!-- About -->
+                    <div class="col-md-3 md-margin-bottom-40">
+                        <a href="index.html"><img id="logo-footer" class="footer-logo" src="~/assets/img/logo2-default.png" alt=""></a>
+                        <p>About Unify dolor sit amet, consectetur adipiscing elit. Maecenas eget nisl id libero tincidunt sodales.</p>
+                        <p>Duis eleifend fermentum ante ut aliquam. Cras mi risus, dignissim sed adipiscing ut, placerat non arcu.</p>
+                    </div><!--/col-md-3-->
+                    <!-- End About -->
+
+                    <!-- Latest -->
+                    <div class="col-md-3 md-margin-bottom-40">
+                        <div class="posts">
+                            <div class="headline"><h2>Latest Posts</h2></div>
+                            <ul class="list-unstyled latest-list">
+                                <li>
+                                    <a href="#">Incredible content</a>
+                                    <small>May 8, 2014</small>
+                                </li>
+                                <li>
+                                    <a href="#">Best shoots</a>
+                                    <small>June 23, 2014</small>
+                                </li>
+                                <li>
+                                    <a href="#">New Terms and Conditions</a>
+                                    <small>September 15, 2014</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!--/col-md-3-->
+                    <!-- End Latest -->
+
+                    <!-- Link List -->
+                    <div class="col-md-3 md-margin-bottom-40">
+                        <div class="headline"><h2>Useful Links</h2></div>
+                        <ul class="list-unstyled link-list">
+                            <li><a href="#">About us</a><i class="fa fa-angle-right"></i></li>
+                            <li><a href="#">Portfolio</a><i class="fa fa-angle-right"></i></li>
+                            <li><a href="#">Latest jobs</a><i class="fa fa-angle-right"></i></li>
+                            <li><a href="#">Community</a><i class="fa fa-angle-right"></i></li>
+                            <li><a href="#">Contact us</a><i class="fa fa-angle-right"></i></li>
+                        </ul>
+                    </div><!--/col-md-3-->
+                    <!-- End Link List -->
+
+                    <!-- Address -->
+                    <div class="col-md-3 map-img md-margin-bottom-40">
+                        <div class="headline"><h2>Contact Us</h2></div>
+                        <address class="md-margin-bottom-40">
+                            25, Lorem Lis Street, Orange <br />
+                            California, US <br />
+                            Phone: 800 123 3456 <br />
+                            Fax: 800 123 3456 <br />
+                            Email: <a href="mailto:info@anybiz.com" class="">info@anybiz.com</a>
+                        </address>
+                    </div><!--/col-md-3-->
+                    <!-- End Address -->
+                </div>
+            </div>
+        </div><!--/footer-->
+
+        <div class="copyright" style="visibility: hidden">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            2015 &copy; All Rights Reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div><!--/copyright-->
+        <div class="copyright bottom-stick">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            2015 &copy; All Rights Reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div><!--/copyright-->
+    </div>
+    <!--=== End Footer Version 1 ===-->
+</div><!--/wrapper-->
+
+<!-- JS Global Compulsory -->
+<script type="text/javascript" src="~/assets/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="~/assets/plugins/jquery.calendar.js"></script>
+<script type="text/javascript" src="~/assets/plugins/jquery/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- JS Implementing Plugins -->
+<script type="text/javascript" src="~/assets/plugins/back-to-top.js"></script>
+<script type="text/javascript" src="~/assets/plugins/smoothScroll.js"></script>
+<script type="text/javascript" src="~/assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+<!-- JS Page Level -->
+<script type="text/javascript" src="~/assets/js/app.js"></script>
+<script type="text/javascript" src="~/assets/js/plugins/cube-portfolio/cube-portfolio-4.js"></script>
+					
+<script src="~/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>
+<script src="~/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
+<script src="~/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.datepicker.pl.js"></script>
+<script src="~/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+
+<!-- JS Customization -->
+<script type="text/javascript" src="~/assets/js/custom.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        //App.init();
+        $("body").css('visibility', 'visible');
+    });
+</script>
+@RenderSection("scripts", false)
+<!--[if lt IE 9]>
+    <script src="~/assets/plugins/respond.js"></script>
+    <script src="~/assets/plugins/html5shiv.js"></script>
+    <script src="~/assets/plugins/placeholder-IE-fixes.js"></script>
+<![endif]-->
+
+</body>
+</html>

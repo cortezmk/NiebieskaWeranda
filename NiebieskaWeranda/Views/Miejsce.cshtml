@@ -1,0 +1,61 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+}
+
+<!--=== Container Part ===-->
+    <div class="container">
+        <div class="content narrow-content">
+            <!-- Magazine Slider -->
+            <div class="carousel slide carousel-v2 margin-bottom-40" id="portfolio-carousel">
+                <div class="carousel-inner">
+					<div class='item active'>
+						<img class="full-width img-responsive" src="@Url.Content(Umbraco.Media(CurrentPage.Zdjecie).Url)" alt="">
+					</div>
+                </div>
+            </div>
+            <!-- End Magazine Slider -->
+
+            <div class="row margin-bottom-20">
+                <div class="col-sm-8">
+                    <div class="headline"><h2>Product Description</h2></div>
+                    <p>@Umbraco.Field("opis")</p>
+                </div>
+                <div class="col-sm-4">
+                    <div class="headline"><h2>Product Details</h2></div>
+                    <ul class="list-unstyled project-details">
+                        <li><strong>Client:</strong> Web Design</li>
+                        <li><strong>Date:</strong> 17 October 2014</li>
+                        <li><strong>Categories:</strong> <a href="#">Web Design,</a> <a href="#">Graphic</a></li>
+                        <li><strong>Website:</strong> <a href="#">https://htmlstream.com</a></li>
+                    </ul>
+                </div>
+            </div>
+			
+			<div class="row margin-bottom-60">
+                <div class="col-sm-6">
+                    <div class="headline"><h2>Informacje Podstawowe</h2></div>
+                    <ul class="list-unstyled project-details">
+                        <li>Wi-Fi</li>
+                        <li>Wi-Fi</li>
+                        <li>Wi-Fi</li>
+                        <li>Wi-Fi</li>
+                        <li>Wi-Fi</li>
+                        <li>Wi-Fi</li>
+                        <li>Wi-Fi</li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <div class="headline"><h2>Product Details</h2></div>
+                    <ul class="list-unstyled project-details">
+                        <li><strong>Client:</strong> Web Design</li>
+                        <li><strong>Date:</strong> 17 October 2014</li>
+                        <li><strong>Categories:</strong> <a href="#">Web Design,</a> <a href="#">Graphic</a></li>
+                        <li><strong>Website:</strong> <a href="#">https://htmlstream.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--=== End Container Part ===-->

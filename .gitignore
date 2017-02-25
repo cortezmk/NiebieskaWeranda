@@ -1,0 +1,14 @@
+.vs/
+packages/
+NiebieskaWeranda/files.csv
+NiebieskaWeranda/files.remote.csv
+NiebieskaWeranda/bin/
+NiebieskaWeranda/obj/
+NiebieskaWeranda/App_Data/cache
+NiebieskaWeranda/App_Data/Logs
+NiebieskaWeranda/App_Data/TEMP
+NiebieskaWeranda/App_Data/preview
+*.dll
+*.obj
+*.sdf
+

@@ -1,0 +1,3 @@
+#NoTrayIcon
+Space::BackSpace
+BackSpace::Space

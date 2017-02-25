@@ -1,0 +1,118 @@
+﻿@using NiebieskaWeranda.Models
+@using NiebieskaWeranda.Models.Partials
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+@{
+    Layout = "Master.cshtml";
+}
+
+@section scripts {
+    <!-- polyfiller file to detect and load polyfills -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+    <!-- polyfiller file to detect and load polyfills -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+    <script>
+  webshims.setOptions('waitReady', false);
+  webshims.setOptions('forms-ext', {types: 'date'});
+  webshims.polyfill('forms forms-ext');
+  webshims.activeLang('pl');
+    </script>
+
+    <script type="text/javascript" src="~/assets/plugins/jquery.calendar.js"></script>
+    <script>
+        $(function() {
+            $('.calendar-left').calendar({direction: 'left'});
+            $('.calendar-right').calendar({ direction: 'right' });
+        });
+    </script>
+    @if (ViewBag.IsReturning != null)
+    {
+        <script>
+            $(function() {
+                $('body').animate({
+                    scrollTop: $('form').offset().top
+                }, 0);
+            });
+        </script>
+    }
+}
+
+<!--=== Container Part ===-->
+<div class="container">
+    <div class="content narrow-content">
+        <!-- Magazine Slider -->
+        <div class="carousel slide carousel-v2 margin-bottom-40" id="portfolio-carousel">
+            @{var imagesList = Model.Content.GetPropertyValue<string>("zdjecia").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
+                var imagesCollection = imagesList.Select(Umbraco.Media).ToList();
+            }
+            <ol class="carousel-indicators">
+                @for (int i = 0; i < imagesCollection.Count; i++)
+                {
+                    <li class='@(i == 0 ? "active " : "")rounded-x' data-target="#portfolio-carousel" data-slide-to="@i"></li>
+                }
+            </ol>
+
+            <div class="carousel-inner">
+                <div class='item active'>
+                    <img class="full-width img-responsive" src="@Url.Content(imagesCollection.First().Url)" alt="">
+                </div>
+                @foreach (var imageItem in imagesCollection.Skip(1))
+                {
+                    <div class='item'>
+                        <img class="full-width img-responsive" src="@Url.Content(imageItem.Url)" alt="">
+                    </div>
+                }
+            </div>
+
+            <a class="left carousel-control rounded-x" href="#portfolio-carousel" role="button" data-slide="prev">
+                <i class="fa fa-angle-left arrow-prev"></i>
+            </a>
+            <a class="right carousel-control rounded-x" href="#portfolio-carousel" role="button" data-slide="next">
+                <i class="fa fa-angle-right arrow-next"></i>
+            </a>
+        </div>
+        <!-- End Magazine Slider -->
+
+        <div class="row margin-bottom-20">
+            <div class="col-sm-8">
+                <p>@Umbraco.Field("opis")</p>
+            </div>
+            <div class="col-sm-4">
+                <div class="headline">
+                    <h2>Wyposażenie</h2>
+                </div>
+                <p>@Umbraco.Field("wyposazenie")</p>
+            </div>
+        </div>
+        <div class="row margin-bottom-20">
+            <div class="col-sm-6 calendarcontainer">
+                <div class='calendar calendar-left' data-reservations-url="@Url.Action("GetReservationInfo", "Apartments", new { apartmentName = CurrentPage.Name })" style='display:table; width:100%; font-family:"arial"'></div>
+            </div>
+            <div class="col-sm-6 calendarcontainer">
+                <div class='calendar calendar-right' data-reservations-url="@Url.Action("GetReservationInfo", "Apartments", new { apartmentName = CurrentPage.Name })" style='display:table; width:100%; font-family:"arial"'></div>
+            </div>
+        </div>
+@*        <div class="row margin-bottom-20">*@
+@*            <div class="col-sm-6 googlemap">*@
+@*                @Html.Partial("_GoogleMap", new GoogleMapModel { Address = Umbraco.Field("adres").ToString(), Height = "500px", Width = "100%", Zoom = int.Parse(Umbraco.Field("zoom").ToString()) })*@
+@*            </div>*@
+@*            <div class="col-sm-6 calendarcontainer">*@
+@*                <div id='calendar' calendar-direction="left" data-reservations-url="@Url.Action("GetReservationInfo", "Apartments", new { apartmentName = CurrentPage.Name })" style='display:table; width:100%; font-family:"arial"'></div>*@
+@*            </div>*@
+        @*        </div>*@
+        @{
+            var maxNumPersons = 10;
+            int.TryParse(Umbraco.Field("maxIloscOsob").ToString(), out maxNumPersons);
+        }
+        @Html.Partial(@"~/Views/Partials/_ReservationForm.cshtml", new NiebieskaWeranda.Models.ReservationRequestModel
+   {
+       NumberOfPersons = 1,
+       ApartmentName = CurrentPage.Name,
+       ArrivalDate = DateTime.Now.AddDays(1).ToString("dd.MM.yyyy"),
+       DepartureDate = DateTime.Now.AddDays(2).ToString("dd.MM.yyyy"),
+       Country = "Polska",
+       MaxNumPersons = maxNumPersons
+   })
+    </div>
+</div>
+<!--=== End Container Part ===-->

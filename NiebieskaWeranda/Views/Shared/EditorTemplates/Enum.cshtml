@@ -1,0 +1,32 @@
+﻿@using System.ComponentModel.DataAnnotations
+@model Enum
+
+@{
+    Func<object, string>
+        GetDisplayName = o =>
+        {
+            var result = null as string;
+            var display = o.GetType()
+                .GetMember(o.ToString()).First()
+                .GetCustomAttributes(false)
+                .OfType<DisplayAttribute>
+                ()
+                .LastOrDefault();
+            if (display != null)
+            {
+                result = display.GetName();
+            }
+
+            return result ?? o.ToString();
+        };
+}
+
+@foreach (var value in Enum.GetValues(Model.GetType()))
+{
+    var id = TagBuilder.CreateSanitizedId(string.Format(
+        "{0}_{1}_{2}", ViewData.TemplateInfo.HtmlFieldPrefix, Model.GetType(), value));
+    <div style="display: inline-block; margin-right: 20px">
+        @Html.RadioButton(string.Empty, value, value.Equals(Model), new { id })
+        @Html.Label(GetDisplayName(value), new { @for = id })
+    </div>
+}

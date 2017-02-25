@@ -1,0 +1,5 @@
+﻿@model NiebieskaWeranda.Models.Partials.GoogleMapModel
+
+<div class="overlay" onClick="style.pointerEvents='none'" style='background:transparent;position:relative;width:@(Model.Width);height:@(Model.Height);top:@(Model.Height);margin-top:-@(Model.Height)'></div>
+<iframe onmouseleave="$('.overlay').css('pointer-events', 'auto')" src="https://www.google.com/maps/embed/v1/place?q=@(Model.Address)&zoom=@(Model.Zoom)&key=AIzaSyBuSpgJwD9FIIq97vS78K40sAjB0XuCL7E"
+        style='width:@(Model.Width); height:@(Model.Height)'></iframe>

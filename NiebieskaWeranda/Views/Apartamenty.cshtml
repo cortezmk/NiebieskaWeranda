@@ -1,0 +1,26 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = "Master.cshtml";
+}
+	<!--=== Blog Posts ===-->
+    <div class="container content-md">
+		@{
+			var selection = @Umbraco.Content(1078).Children("Apartament");
+		}
+		@foreach(var item in selection){
+        <!-- News v3 -->
+			<div class="row margin-bottom-20">
+				<div class="col-sm-5 sm-margin-bottom-20">
+					<img class="img-responsive" src="@Url.Content(Umbraco.Media(item.Miniatura).Url)" alt="">
+				</div>
+				<div class="col-sm-7">
+					<div class="news-v3">
+						<h2><a href="@item.Url">@item.Name</a></h2>
+						<p>@item.Opis</p>
+					</div>
+				</div>
+			</div><!--/end row-->
+			<!-- End News v3 -->
+		}
+    </div><!--/end container-->
+    <!--=== End Blog Posts ===-->

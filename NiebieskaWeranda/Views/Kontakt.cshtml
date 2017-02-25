@@ -1,0 +1,18 @@
+﻿@using NiebieskaWeranda.Models
+@using NiebieskaWeranda.Models.Partials
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+}
+
+<div class="container">
+        <div class="content narrow-content">
+<div class="row margin-bottom-20">
+	<div class="col-sm-6">
+    	@Html.Partial("_GoogleMap", new GoogleMapModel {Address=Umbraco.Field("adres").ToString(), Height="500px", Width="100%", Zoom=int.Parse(Umbraco.Field("zoom").ToString())})
+	</div>	
+	<div class="col-sm-6">
+		@Umbraco.Field("tresc")
+    </div>
+</div>
+</div></div>
