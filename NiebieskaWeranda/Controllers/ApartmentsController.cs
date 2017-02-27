@@ -311,12 +311,17 @@ Email: <b>{model.Email}</b>";
             }
 
             // Unite reservations which have overlapping days.
-            for (var i = 0; i < reservations.Count - 1; i++)
+            var i = 0;
+            while (i < reservations.Count - 1)
             {
                 if (reservations[i].Departure.Date == reservations[i + 1].Arrival.Date)
                 {
                     reservations[i].Departure = reservations[i + 1].Departure;
                     reservations.RemoveAt(i + 1);
+                }
+                else
+                {
+                    i++;
                 }
             }
 
@@ -350,7 +355,7 @@ Email: <b>{model.Email}</b>";
                     {
                         reservationStrings.Add($"\"{firstDay}\": [12, 24]");
                     }
-                    for (var i = firstDay + 1; i < lastDay; i++)
+                    for (i = firstDay + 1; i < lastDay; i++)
                     {
                         reservationStrings.Add($"\"{i}\": [0, 24]");
                     }
