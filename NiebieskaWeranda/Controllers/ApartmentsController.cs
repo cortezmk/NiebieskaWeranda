@@ -119,8 +119,8 @@ namespace NiebieskaWeranda.Controllers
             }
             return reservations.Any(
                 r => ((r.Arrival.Date != departure && (r.Departure.Date != arrival)) && 
-                    (r.Arrival <= arrival && r.Departure >= arrival) ||
-                    (r.Arrival <= departure && r.Departure >= departure)));
+                    (r.Arrival <= arrival && r.Departure > arrival) ||
+                    (r.Arrival < departure && r.Departure >= departure)));
         }
 
         private bool CompareDates(DateTime date1, DateTime date2)
@@ -326,6 +326,8 @@ Email: <b>{model.Email}</b>";
                 var lastDay = reservation.Departure.Month == month
                     ? reservation.Departure.Day
                     : DateTime.DaysInMonth(year, month);
+                var isBorderedLeft = reservation.Arrival.Month != month;
+                var isBorderedRight = reservation.Departure.Month != month;
                 if (firstDay > lastDay)
                 {
                     continue;
@@ -340,12 +342,26 @@ Email: <b>{model.Email}</b>";
                 }
                 else
                 {
-                    reservationStrings.Add($"\"{firstDay}\": [12, 24]");
+                    if (isBorderedLeft)
+                    {
+                        reservationStrings.Add($"\"{firstDay}\": [0, 24]");
+                    }
+                    else
+                    {
+                        reservationStrings.Add($"\"{firstDay}\": [12, 24]");
+                    }
                     for (var i = firstDay + 1; i < lastDay; i++)
                     {
                         reservationStrings.Add($"\"{i}\": [0, 24]");
                     }
-                    reservationStrings.Add($"\"{lastDay}\": [0, 12]");
+                    if (isBorderedRight)
+                    {
+                        reservationStrings.Add($"\"{lastDay}\": [0, 24]");
+                    }
+                    else
+                    {
+                        reservationStrings.Add($"\"{lastDay}\": [0, 12]");
+                    }
                 }
             }
             return reservationStrings;
