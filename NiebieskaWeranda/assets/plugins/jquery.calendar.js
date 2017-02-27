@@ -14,6 +14,7 @@
     $('.calendarText').css('font-size', h * .34);
     $('.calendar-price').css('font-size', h * 0.25);
     $('.calendar-day').css('font-size', h * 0.425);
+    $('.calendar-legend-day').css('font-size', h * 0.35);
     $('.calendar_loading').css('height', h * 8.5);
     $('.loading_margin').css('height', h * 1.5);
     var cms = +$('.calendarMonthSwitch').css('width').substring(0, width.length - 2);
@@ -38,19 +39,32 @@ function drawLegend(calendarDiv) {
     var legendEntries = [
         { start: 0, end: 0, content: 'wolne', price: '', priceDecimal: '' },
         { start: 0, end: 24, content: 'zajęte', price: '', priceDecimal: '' },
-        { start: 0, end: 12, content: 'zajęty', price: 'do 11', priceDecimal: '00' },
-        { start: 12, end: 24, content: 'zajęty', price: 'od 15', priceDecimal: '00' }
+        { start: 0, end: 12, content: 'zajęte', price: 'do 11', priceDecimal: '00' },
+        { start: 12, end: 24, content: 'zajęte', price: 'od 15', priceDecimal: '00' }
     ];
     for (var i = 0; i < legendEntries.length; i++) {
         var legendEntryDiv = $("<div class='legendEntry' style='width: 100%'></div>");
         var j = legendEntries[i];
-        drawDayCell(legendDiv, j.start, j.end, j.content, j.price, j.priceDecimal, cellHeight);
+        drawLegendDayCell(legendDiv, j.start, j.end, j.content, j.price, j.priceDecimal, cellHeight);
     }
 
     var legendContainer = $("<div class='legendContainer' style='display:table; width: 57%'></div>");
     legendDiv.appendTo(legendContainer);
     legendContainer.insertAfter(calendarDiv);
     $("<div class='calendarText legend'>legenda:</div>").insertAfter(calendarDiv);
+}
+function drawLegendDayCell(parent, start, end, content, price, priceDecimal, cellHeight, currency) {
+    if (currency == undefined) {
+        currency = '';
+    }
+    var dayCell = $("<div class='calendarDay'></div>").appendTo(parent);
+    var inDayCell = $("<div style='height:" + cellHeight + "px' class='calendarInDayCell'></div>").appendTo(dayCell);
+    $("<div class='calendarDayFree' style='width:" + ((start / 24) * 100) + "%;'></div>").appendTo(inDayCell);
+    $("<div class='calendarDayTaken' style='width:" + (((end - start) / 24) * 100) + "%;'></div>").appendTo(inDayCell);
+    $("<div class='calendarDayFree' style='width:" + (((24 - end) / 24) * 100) + "%;'></div>").appendTo(inDayCell);
+    var text = "<span class='calendar-legend-day calendarText legend'>" + content + "</span><span class='calendar-price'>";
+    text += price + currency + "<span class='calendarInDayTextHourMins'>" + priceDecimal + "</span></span>";
+    $("<div class='calendarInDayText calendarInDayTextHour'>" + text + "</div>").appendTo(inDayCell);
 }
 function drawDayCell(parent, start, end, content, price, priceDecimal, cellHeight, currency) {
     if (currency == undefined) {
@@ -62,7 +76,7 @@ function drawDayCell(parent, start, end, content, price, priceDecimal, cellHeigh
     $("<div class='calendarDayTaken' style='width:" + (((end - start) / 24) * 100) + "%;'></div>").appendTo(inDayCell);
     $("<div class='calendarDayFree' style='width:" + (((24 - end) / 24) * 100) + "%;'></div>").appendTo(inDayCell);
     var text = "<span class='calendar-day'>" + content + "</span><span class='calendar-price'>";
-    text += price + currency + "<span class='calendarInDayTextHourMins'>" + priceDecimal + "</span></span>";
+//    text += price + currency + "<span class='calendarInDayTextHourMins'>" + priceDecimal + "</span></span>";
     $("<div class='calendarInDayText calendarInDayTextHour'>" + text + "</div>").appendTo(inDayCell);
 }
 $(window).resize(function () {

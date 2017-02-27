@@ -71,13 +71,14 @@
                      @Html.ValidationMessageFor(m => m.Country)
 @*                     @Html.EditorFor(m => m.Country)*@
                      @Html.DropDownListFor(m => m.Country, Utils.GetCountries())
+
+                     <div style="margin-top: 10px; margin-bottom: 10px;">
+                         @Html.CheckBoxFor(m => m.Agreed)
+                         @Html.ValidationMessageFor(m => m.Agreed)
+                         <span>Oświadczam, że zapoznałem się z treścią <a href="/regulamin">regulaminu</a>.</span>
+                     </div>
                  </div>
 
-                <div>
-                    @Html.CheckBoxFor(m => m.Agreed, new {style = "margin-left: 20px"})
-                    @Html.ValidationMessageFor(m => m.Agreed)
-                    <span>Oświadczam, że zapoznałem się z treścią <a href="/regulamin">regulaminu</a>.</span>
-                </div>
                 if (!string.IsNullOrEmpty((TempData["ErrorMessage"] ?? string.Empty).ToString()))
                 {
                     <div class="field-validation-error generic-error-message">@TempData["ErrorMessage"]</div>
