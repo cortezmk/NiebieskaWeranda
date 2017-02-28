@@ -3,17 +3,19 @@
     if (width == undefined) return;
     var w = width.substring(0, width.length - 2);
     var h = parseInt(w) * .8;
-    $('.calendarEmptyDay').css('height', h);
-    $('.calendarInDayCell').css('height', h);
+    $('.calendarEmptyDay-legend').css('height', h);
+    $('.calendarInDayCell-legend').css('height', h);
+    $('.calendarEmptyDay').css('height', h * .65);
+    $('.calendarInDayCell').css('height', h * .65);
     $('.calendarInDayText').css('width', w);
-    $('.calendarInDayText').css('height', h);
+    $('.calendarInDayText').css('height', h * .8);
     $('.calendarInDayText').css('top', -h * .05);
     $('.calendarInDayText').css('font-size', h * .7);
     $('.calendarInDayTextHour').css('font-size', h * .34);
     $('.calendarInDayTextHourMins').css('font-size', h * .15);
-    $('.calendarText').css('font-size', h * .34);
+    $('.calendarText').css('font-size', h * .40);
     $('.calendar-price').css('font-size', h * 0.25);
-    $('.calendar-day').css('font-size', h * 0.425);
+    $('.calendar-day').css('font-size', h * 0.37);
     $('.calendar-legend-day').css('font-size', h * 0.35);
     $('.calendar_loading').css('height', h * 8.5);
     $('.loading_margin').css('height', h * 1.5);
@@ -21,7 +23,7 @@
     $('.calendarMonthSwitch').css('height', (cms * .8) + 'px');
 
     $('.calendar').css('font-size', w / 3.5 + 'px');
-    $('.calendar').css('min-height', (h*7) + 'px');
+    $('.calendar').css('min-height', (h*7 * .7) + 'px');
 }
 function zeroFill(number, width) {
     if (width == undefined) {
@@ -57,8 +59,8 @@ function drawLegendDayCell(parent, start, end, content, price, priceDecimal, cel
     if (currency == undefined) {
         currency = '';
     }
-    var dayCell = $("<div class='calendarDay'></div>").appendTo(parent);
-    var inDayCell = $("<div style='height:" + cellHeight + "px' class='calendarInDayCell'></div>").appendTo(dayCell);
+    var dayCell = $("<div class='calendarDay-legend'></div>").appendTo(parent);
+    var inDayCell = $("<div style='height:" + cellHeight + "px' class='calendarInDayCell-legend'></div>").appendTo(dayCell);
     $("<div class='calendarDayFree' style='width:" + ((start / 24) * 100) + "%;'></div>").appendTo(inDayCell);
     $("<div class='calendarDayTaken' style='width:" + (((end - start) / 24) * 100) + "%;'></div>").appendTo(inDayCell);
     $("<div class='calendarDayFree' style='width:" + (((24 - end) / 24) * 100) + "%;'></div>").appendTo(inDayCell);
@@ -200,7 +202,7 @@ $.fn.calendar = function(options) {
         }
         calendarMonthCurr.data('month', date.getMonth());
         calendarMonthCurr.data('year', date.getFullYear());
-        var additionMultiplier = options.direction === 'center' ? 1 : 2;
+        var additionMultiplier = 1;//options.direction === 'center' ? 1 : 2;
         calendarMonthPrev.on('click', { drawCalendar: this.drawCalendar, calendarDiv: calendarDiv, addition: -1 * additionMultiplier }, this.dateChanged);
         calendarMonthNext.on('click', { drawCalendar: this.drawCalendar, calendarDiv: calendarDiv, addition: 1 * additionMultiplier }, this.dateChanged);
         if (options.direction !== 'right') {

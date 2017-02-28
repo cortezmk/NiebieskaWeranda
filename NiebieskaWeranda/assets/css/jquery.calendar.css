@@ -7,6 +7,11 @@
     width: 14%;
 }
 
+.calendarDay-legend {
+    display: table-cell;
+    width: 14%;
+}
+
 .calendarEmptyDay {
     background-color:#ffffff;
     margin: 5px;
@@ -16,6 +21,12 @@
 }
 
 .calendarInDayCell {
+    position: relative;
+    overflow: hidden;
+    border: 1px #d3d3d3 solid;
+}
+
+.calendarInDayCell-legend {
     position: relative;
     overflow: hidden;
     border: 1px #d3d3d3 solid;
