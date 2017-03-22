@@ -4,40 +4,41 @@
 }
 
 <div class="container">
-	<div class="content">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="headline"><h2>Niebieska Weranda</h2></div>
-					@Umbraco.Field("tekst")
-				</div>
-			</div>
-		</div>
-		<div class="row margin-bottom-60">
-			<div class="cube-portfolio container col-sm-12">
-				<div class="headline"><h2>Nasze Apartamenty</h2></div>
-					<div id="grid-container" class="cbp-l-grid-agency">
-					@{
-						var selection = @Umbraco.Content(1078).Children("Apartament");
-					}
-					@foreach(var item in selection){
-						<div class="cbp-item nonhidden-overflow">
-							<div class="cbp-caption nonhidden-overflow" style="margin-top:20px">
-								<div class="thumbnails thumbnail-style thumbnail-kenburn">
-									<div class="thumbnail-img">
-										<a href="@item.Url">
-											<img class="img-responsive" src="@Url.Content(Umbraco.Media(item.Miniatura).umbracoFile)" alt="" />
-										</a>
-									</div>
-									<div class="caption">
-										<h3><a class="hover-effect" href="@item.Url">@item.Name</a></h3>
-									</div>
-								</div>
-							</div>
-						</div>
-					}
-					</div><!--/end Grid Container-->
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="content">
+        <div class="row">
+	        <div class="col-sm-12">
+	            <div class="headline">
+	                <h2>Niebieska Weranda</h2>
+                </div>
+			    @Umbraco.Field("tekst")
+		    </div>
+	    </div>
+    </div>
+@*    <div class="row margin-bottom-60">*@
+@*	    <div class="cube-portfolio container col-sm-12">*@
+@*		    <div class="headline"><h2>Nasze Apartamenty</h2></div>*@
+@*			<div id="grid-container" class="cbp-l-grid-agency">*@
+@*			    @{*@
+@*				    var selection = @Umbraco.Content(1078).Children("Apartament");*@
+@*			    }*@
+@*			@foreach(var item in selection)*@
+@*            {*@
+@*				<div class="cbp-item nonhidden-overflow">*@
+@*					<div class="cbp-caption nonhidden-overflow" style="margin-top:20px">*@
+@*						<div class="thumbnails thumbnail-style thumbnail-kenburn">*@
+@*							<div class="thumbnail-img">*@
+@*								<a href="@item.Url">*@
+@*									<img class="img-responsive" src="@Url.Content(Umbraco.Media(item.Miniatura).umbracoFile)" alt="" />*@
+@*								</a>*@
+@*							</div>*@
+@*							<div class="caption">*@
+@*								<h3><a class="hover-effect" href="@item.Url">@item.Name</a></h3>*@
+@*							</div>*@
+@*						</div>*@
+@*					</div>*@
+@*				</div>*@
+@*			}*@
+@*			</div>*@
+@*		</div>*@
+@*	</div>*@
 </div>

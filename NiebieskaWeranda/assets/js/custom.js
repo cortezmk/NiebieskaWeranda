@@ -34,6 +34,14 @@ $(function () {
         }
     })(jQuery);
 
+    function applyFooter() {
+        $('.wrapper').css('min-height', window.innerHeight - 70);
+    }
+
+    applyFooter();
+    $(window).resize(function() {
+        applyFooter();
+    });
     $("input[type='datetime'], input[type='text'], input[type='number'], input[type='email'], input[type='datetime'], input[type='submit'], select").addClass("form-control");
 
     $('#ArrivalDate').on('change', function() { setPrice(); });

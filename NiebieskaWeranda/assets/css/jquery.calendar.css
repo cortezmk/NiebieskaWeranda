@@ -80,10 +80,15 @@
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-.calendar-price {
+.calendarInDayText .calendar-price {
     display: block;
+    color: gray;
 }
 
 .calendar-day {
     display: block;
+}
+
+.calendarMonthCurr {
+    font-weight: bold;
 }

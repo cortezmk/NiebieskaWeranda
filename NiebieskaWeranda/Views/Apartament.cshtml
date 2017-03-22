@@ -12,14 +12,15 @@
     <!-- polyfiller file to detect and load polyfills -->
     <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
     <script>
-  webshims.setOptions('waitReady', false);
-  webshims.setOptions('forms-ext', {types: 'date'});
-  webshims.polyfill('forms forms-ext');
-  webshims.activeLang('pl');
+        webshims.setOptions('waitReady', false);
+        webshims.setOptions('forms-ext', {types: 'date'});
+        webshims.polyfill('forms forms-ext');
+        webshims.activeLang('pl');
     </script>
 
     <script type="text/javascript" src="~/assets/plugins/jquery.calendar.js"></script>
     <script>
+        window.hidePrice = "@Model.Content.GetPropertyValue("ukryjCene")" === "True";
         $(function() {
             $('.calendar-left').calendar({direction: 'left'});
             $('.calendar-right').calendar({ direction: 'right' });

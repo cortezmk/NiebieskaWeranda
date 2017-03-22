@@ -63,3 +63,13 @@ h1.breadcrumbs-v3-header {
     width: 100%;
     z-index: 9;
 }
+
+.copyright {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.wrapper {
+    position: relative;
+}

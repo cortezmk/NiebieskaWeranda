@@ -5,18 +5,19 @@
     var h = parseInt(w) * .8;
     $('.calendarEmptyDay-legend').css('height', h);
     $('.calendarInDayCell-legend').css('height', h);
-    $('.calendarEmptyDay').css('height', h * .65);
-    $('.calendarInDayCell').css('height', h * .65);
+    $('.calendarEmptyDay').css('height', h * .9);
+    $('.calendarInDayCell').css('height', h * .9);
     $('.calendarInDayText').css('width', w);
-    $('.calendarInDayText').css('height', h * .8);
+    $('.calendarInDayText').css('height', h * .9);
     $('.calendarInDayText').css('top', -h * .05);
     $('.calendarInDayText').css('font-size', h * .7);
     $('.calendarInDayTextHour').css('font-size', h * .34);
     $('.calendarInDayTextHourMins').css('font-size', h * .15);
-    $('.calendarText').css('font-size', h * .40);
+    $('.calendarText').css('font-size', h * .3);
     $('.calendar-price').css('font-size', h * 0.25);
-    $('.calendar-day').css('font-size', h * 0.37);
+    $('.calendar-day').css('font-size', h * 0.3);
     $('.calendar-legend-day').css('font-size', h * 0.35);
+    $('.calendarWeekRow').css('font-size', h * 0.30);
     $('.calendar_loading').css('height', h * 8.5);
     $('.loading_margin').css('height', h * 1.5);
     var cms = +$('.calendarMonthSwitch').css('width').substring(0, width.length - 2);
@@ -78,7 +79,9 @@ function drawDayCell(parent, start, end, content, price, priceDecimal, cellHeigh
     $("<div class='calendarDayTaken' style='width:" + (((end - start) / 24) * 100) + "%;'></div>").appendTo(inDayCell);
     $("<div class='calendarDayFree' style='width:" + (((24 - end) / 24) * 100) + "%;'></div>").appendTo(inDayCell);
     var text = "<span class='calendar-day'>" + content + "</span><span class='calendar-price'>";
-//    text += price + currency + "<span class='calendarInDayTextHourMins'>" + priceDecimal + "</span></span>";
+    if (!window.hidePrice) {
+        text += price + currency + "<span class='calendarInDayTextHourMins'>" + priceDecimal + "</span></span>";
+    }
     $("<div class='calendarInDayText calendarInDayTextHour'>" + text + "</div>").appendTo(inDayCell);
 }
 $(window).resize(function () {
