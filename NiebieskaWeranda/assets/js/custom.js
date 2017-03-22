@@ -34,6 +34,14 @@ $(function () {
         }
     })(jQuery);
 
+    $('.cbp-filter-item').click(function(item) {
+        var filter = $(item.target).data('filter');
+        $('.cbp-filter-item').removeClass('cbp-filter-item-active');
+        $(item.target).addClass('cbp-filter-item-active');
+        $('.custom-filter-item').hide();
+        $('.custom-filter-item' + filter).show();
+    });
+
     function applyFooter() {
         $('.wrapper').css('min-height', window.innerHeight - 70);
     }

@@ -5,10 +5,10 @@
 
 
 <!--=== Cube-Portfdlio ===-->
-    <div class="cube-portfolio container margin-bottom-60">
+    <div class="cube-portfolio container">
         <div class="content-xs">
-            <div id="filters-container" class="cbp-l-filters-text content-xs">
-                <div data-filter="*" class="cbp-filter-item-active cbp-filter-item"> Wszystko </div> |
+            <div class="custom-filters-container cbp-l-filters-text content-xs">
+                <div data-filter="" class="cbp-filter-item-active cbp-filter-item"> Wszystko </div> |
                 <div data-filter=".Kultura" class="cbp-filter-item"> Kultura </div> |
                 <div data-filter=".Rekreacja" class="cbp-filter-item"> Rekreacja </div> |
                 <div data-filter=".Atrakcje" class="cbp-filter-item"> Atrakcje </div> |
@@ -16,34 +16,27 @@
             </div><!--/end Filters Container-->
         </div>
 
-        <div id="grid-container" class="cbp-l-grid-agency">
+        <div class="custom-filter-items">
 			@{
 				var selection = @CurrentPage.Children;
 			}
 			@foreach(var item in selection)
 			{
-				<div class="cbp-item @(item.Kategoria)">
-					<div class="cbp-caption margin-bottom-20">
-						<div class="cbp-caption-defaultWrap">
-							<img src="@Url.Content(Umbraco.Media(item.Zdjecie).Url)" alt="">
-						</div>
-						<div class="cbp-caption-activeWrap">
-							<div class="cbp-l-caption-alignCenter">
-								<div class="cbp-l-caption-body">
-									<ul class="link-captions no-bottom-space">
-										<li><a href="@item.Url"><i class="rounded-x fa fa-link"></i></a></li>
-										<li><a href="@Url.Content(Umbraco.Media(item.Zdjecie).Url)" class="cbp-lightbox" data-title="Design Object"><i class="rounded-x fa fa-search"></i></a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cbp-title-dark">
-						<div class="cbp-l-grid-agency-title">@item.Name</div>
-						<div class="cbp-l-grid-agency-desc">@item.Kategoria</div>
-					</div>
-				</div>
+			    <div class="custom-filter-item @(item.Kategoria)">
+                    <div class="row margin-bottom-20">
+                        <div class="col-sm-5 sm-margin-bottom-20">
+                            <img class="img-responsive" src="@Url.Content(Umbraco.Media(item.Zdjecie).Url)" alt="">
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="news-v3">
+                                <h2>@item.Name</h2>
+                                <p>@item.Opis</p>
+                            </div>
+                        </div>
+                    </div>
+			    </div>
 			}
         </div><!--/end Grid Container-->
+        <div class="margin-bottom-100"></div>
     </div>
     <!--=== End Cube-Portfdlio ===-->
