@@ -10,18 +10,21 @@
     $('.calendarInDayText').css('width', w);
     $('.calendarInDayText').css('height', h * .9);
     $('.calendarInDayText').css('top', -h * .05);
+    $('.calendarInDayCell-legend .calendarInDayText').css('top', -h * .12);
     $('.calendarInDayText').css('font-size', h * .7);
     $('.calendarInDayTextHour').css('font-size', h * .34);
     $('.calendarInDayTextHourMins').css('font-size', h * .15);
     $('.calendarText').css('font-size', h * .3);
     $('.calendar-price').css('font-size', h * 0.25);
-    $('.calendar-day').css('font-size', h * 0.3);
+    $('.calendar-day').css('font-size', h * 0.29);
     $('.calendar-legend-day').css('font-size', h * 0.35);
     $('.calendarWeekRow').css('font-size', h * 0.30);
     $('.calendar_loading').css('height', h * 8.5);
     $('.loading_margin').css('height', h * 1.5);
+    $('.calendar-legend-day.calendarText.legend').css('font-size', h * .28);
     var cms = +$('.calendarMonthSwitch').css('width').substring(0, width.length - 2);
     $('.calendarMonthSwitch').css('height', (cms * .8) + 'px');
+    $('.calendarDay-legend>div').css('height', h * .8);
 
     $('.calendar').css('font-size', w / 3.5 + 'px');
     $('.calendar').css('min-height', (h*7 * .7) + 'px');

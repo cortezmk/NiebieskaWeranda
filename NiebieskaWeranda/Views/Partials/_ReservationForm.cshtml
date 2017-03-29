@@ -14,33 +14,34 @@
         {
             using (Html.BeginUmbracoForm<ApartmentsController>("SubmitRequest", new { }, new Dictionary<string, object> { { "id", "apartmentForm" } }))
             {
-                 <div class="col-md-6">
-                     @Html.LabelFor(m => m.ArrivalDate)
-                     @Html.ValidationMessageFor(m => m.ArrivalDate)
-                     @Html.EditorFor(m => m.ArrivalDate, new { @class = "type-date" })
-                     @Html.LabelFor(m => m.DepartureDate)
-                     @Html.ValidationMessageFor(m => m.DepartureDate)
-                     @Html.EditorFor(m => m.DepartureDate, new {@class = "type-date" })
-                     @Html.LabelFor(m => m.NumberOfPersons)
-                     @Html.ValidationMessageFor(m => m.NumberOfPersons)
-                     <input class="text-box single-line" id="NumberOfPersons" name="NumberOfPersons" type="number" value="1" min="1" max="@Model.MaxNumPersons" />
-                     @Html.HiddenFor(m => m.ApartmentName)
+                <div class="col-md-6">
+                    <div style="margin-top: 10px">
+                        <span>Nazwa apartamentu: </span><span id="apartmentName" class="reservationStatisticsValue">@Model.ApartmentName</span>
+                    </div>
+                    @Html.LabelFor(m => m.ArrivalDate)
+                    @Html.ValidationMessageFor(m => m.ArrivalDate)
+                    @Html.EditorFor(m => m.ArrivalDate, new {@class = "type-date"})
+                    @Html.LabelFor(m => m.DepartureDate)
+                    @Html.ValidationMessageFor(m => m.DepartureDate)
+                    @Html.EditorFor(m => m.DepartureDate, new {@class = "type-date"})
+                    @Html.LabelFor(m => m.NumberOfPersons)
+                    @Html.ValidationMessageFor(m => m.NumberOfPersons)
+                    <input class="text-box single-line" id="NumberOfPersons" name="NumberOfPersons" type="number" value="1" min="1" max="@Model.MaxNumPersons"/>
+                    @Html.HiddenFor(m => m.ApartmentName)
 
-                     <div style="margin-top: 20px">
-                         <span>Nazwa apartamentu: </span><span id="apartmentName" class="reservationStatisticsValue">@Model.ApartmentName</span>
-                     </div>
-                     <div class="reservationStatistics" style="display: none">
-                         <div>
-                             <span>Ilość nocy: </span><span id="numNights" class="reservationStatisticsValue"></span>
-                         </div>
-                         <div>
-                             <span>Cena: </span><span data-get-price-url="@Url.Action("GetTotalPrice", "Apartments")#reservation" id="totalPrice" class="reservationStatisticsValue"></span><span> zł</span>
-                         </div>
-                     </div>
-                     <div style="margin-bottom: 20px"></div>
-                     @Html.LabelFor(m => m.Comments)
-                     @Html.EditorFor(m => m.Comments)
-                 </div>
+
+                    <div class="reservationStatistics" style="display: none; margin-top: 20px">
+                        <div>
+                            <span>Ilość nocy: </span><span id="numNights" class="reservationStatisticsValue"></span>
+                        </div>
+                        <div>
+                            <span>Cena: </span><span data-get-price-url="@Url.Action("GetTotalPrice", "Apartments")#reservation" id="totalPrice" class="reservationStatisticsValue"></span><span> zł</span>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px"></div>
+                    @Html.LabelFor(m => m.Comments)
+                    @Html.EditorFor(m => m.Comments)
+                </div>
 
                  <div class="col-md-6">
                      @Html.LabelFor(m => m.FirstName)
