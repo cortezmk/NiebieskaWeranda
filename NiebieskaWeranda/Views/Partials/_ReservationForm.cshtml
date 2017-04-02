@@ -15,70 +15,144 @@
             using (Html.BeginUmbracoForm<ApartmentsController>("SubmitRequest", new { }, new Dictionary<string, object> { { "id", "apartmentForm" } }))
             {
                 <div class="col-md-6">
-                    <div style="margin-top: 10px">
+                    <div style="margin-bottom: 10px">
                         <span>Nazwa apartamentu: </span><span id="apartmentName" class="reservationStatisticsValue">@Model.ApartmentName</span>
                     </div>
-                    @Html.LabelFor(m => m.ArrivalDate)
-                    @Html.ValidationMessageFor(m => m.ArrivalDate)
-                    @Html.EditorFor(m => m.ArrivalDate, new {@class = "type-date"})
-                    @Html.LabelFor(m => m.DepartureDate)
-                    @Html.ValidationMessageFor(m => m.DepartureDate)
-                    @Html.EditorFor(m => m.DepartureDate, new {@class = "type-date"})
-                    @Html.LabelFor(m => m.NumberOfPersons)
-                    @Html.ValidationMessageFor(m => m.NumberOfPersons)
-                    <input class="text-box single-line" id="NumberOfPersons" name="NumberOfPersons" type="number" value="1" min="1" max="@Model.MaxNumPersons"/>
-                    @Html.HiddenFor(m => m.ApartmentName)
-
-
-                    <div class="reservationStatistics" style="display: none; margin-top: 20px">
-                        <div>
-                            <span>Ilość nocy: </span><span id="numNights" class="reservationStatisticsValue"></span>
+                    <div class="form-table">
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.ArrivalDate)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.ArrivalDate)
+                                @Html.EditorFor(m => m.ArrivalDate, new {@class = "type-date"})
+                            </div>
                         </div>
-                        <div>
-                            <span>Cena: </span><span data-get-price-url="@Url.Action("GetTotalPrice", "Apartments")#reservation" id="totalPrice" class="reservationStatisticsValue"></span><span> zł</span>
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.DepartureDate)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.DepartureDate)
+                                @Html.EditorFor(m => m.DepartureDate, new {@class = "type-date"})
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.NumberOfPersons)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.NumberOfPersons)
+                                <input class="text-box single-line" id="NumberOfPersons" name="NumberOfPersons" type="number" value="1" min="1" max="@Model.MaxNumPersons"/>
+                            </div>
                         </div>
                     </div>
-                    <div style="margin-bottom: 20px"></div>
-                    @Html.LabelFor(m => m.Comments)
-                    @Html.EditorFor(m => m.Comments)
+                    <div>
+                        @Html.HiddenFor(m => m.ApartmentName)
+                        <div class="reservationStatistics" style="display: none; margin-top: 20px">
+                            <div>
+                                <span>Ilość nocy: </span><span id="numNights" class="reservationStatisticsValue"></span>
+                            </div>
+                            <div>
+                                <span>Cena: </span><span data-get-price-url="@Url.Action("GetTotalPrice", "Apartments")#reservation" id="totalPrice" class="reservationStatisticsValue"></span><span> zł</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 20px"></div>
+                        @Html.LabelFor(m => m.Comments)
+                        @Html.EditorFor(m => m.Comments)
+                    </div>
                 </div>
-
-                 <div class="col-md-6">
-                     @Html.LabelFor(m => m.FirstName)
-                     @Html.ValidationMessageFor(m => m.FirstName)
-                     @Html.EditorFor(m => m.FirstName)
-                     @Html.LabelFor(m => m.LastName)
-                     @Html.ValidationMessageFor(m => m.LastName)
-                     @Html.EditorFor(m => m.LastName)
-                     @Html.LabelFor(m => m.Email)
-                     @Html.ValidationMessageFor(m => m.Email)
-                     @Html.EditorFor(m => m.Email)
-                     @Html.LabelFor(m => m.RepeatEmail)
-                     @Html.ValidationMessageFor(m => m.RepeatEmail)
-                     @Html.EditorFor(m => m.RepeatEmail)
-                     @Html.LabelFor(m => m.Phone)
-                     @Html.ValidationMessageFor(m => m.Phone)
-                     @Html.EditorFor(m => m.Phone)
-                     @Html.LabelFor(m => m.Street)
-                     @Html.ValidationMessageFor(m => m.Street)
-                     @Html.EditorFor(m => m.Street)
-                     @Html.LabelFor(m => m.Zip)
-                     @Html.ValidationMessageFor(m => m.Zip)
-                     @Html.EditorFor(m => m.Zip)
-                     @Html.LabelFor(m => m.City)
-                     @Html.ValidationMessageFor(m => m.City)
-                     @Html.EditorFor(m => m.City)
-                     @Html.LabelFor(m => m.Country)
-                     @Html.ValidationMessageFor(m => m.Country)
-@*                     @Html.EditorFor(m => m.Country)*@
-                     @Html.DropDownListFor(m => m.Country, Utils.GetCountries())
-
-                     <div style="margin-top: 10px; margin-bottom: 10px;">
-                         @Html.CheckBoxFor(m => m.Agreed)
-                         @Html.ValidationMessageFor(m => m.Agreed)
-                         <span>Oświadczam, że zapoznałem się z treścią <a href="/regulamin">regulaminu</a>.</span>
-                     </div>
-                 </div>
+                <div class="col-md-6">
+                    <div class="form-table">
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.FirstName)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.FirstName)
+                                @Html.EditorFor(m => m.FirstName)
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.LastName)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.LastName)
+                                @Html.EditorFor(m => m.LastName)
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.Email)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.Email)
+                                @Html.EditorFor(m => m.Email)
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.RepeatEmail)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.RepeatEmail)
+                                @Html.EditorFor(m => m.RepeatEmail)
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.Phone)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.Phone)
+                                @Html.EditorFor(m => m.Phone)
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.Street)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.Street)
+                                @Html.EditorFor(m => m.Street)
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.Zip)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.Zip)
+                                @Html.EditorFor(m => m.Zip)
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.City)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.City)
+                                @Html.EditorFor(m => m.City)
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">
+                                @Html.LabelFor(m => m.Country)
+                            </div>
+                            <div class="form-input">
+                                @Html.ValidationMessageFor(m => m.Country)
+                                @*@Html.EditorFor(m => m.Country)*@
+                                @Html.DropDownListFor(m => m.Country, Utils.GetCountries())
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; margin-bottom: 10px;">
+                        @Html.CheckBoxFor(m => m.Agreed)
+                        @Html.ValidationMessageFor(m => m.Agreed)
+                        <span>Oświadczam, że zapoznałem się z treścią <a href="/regulamin">regulaminu</a>.</span>
+                    </div>
+                </div>
 
                 if (!string.IsNullOrEmpty((TempData["ErrorMessage"] ?? string.Empty).ToString()))
                 {

@@ -77,3 +77,22 @@ h1.breadcrumbs-v3-header {
 .apartamenty-glowne {
     padding-top: 50px;
 }
+
+.form-table {
+    display: table;
+}
+
+div .form-row {
+    display: table-row;
+}
+
+.form-label {
+    display: table-cell;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+div .form-input {
+    display: table-cell;
+    width: 100%;
+}
