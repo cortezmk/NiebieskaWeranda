@@ -290,6 +290,9 @@ Email: <b>{model.Email}</b>";
         private IEnumerable<string> GetReservationStrings(string apartmentName, int year, int month)
         {
             var reservationStrings = new List<string>();
+            var probeDateFirstDay = new DateTime(year, month, 1, 0, 0, 0);
+            var probeDateLastDay = new DateTime(year, month, DateTime.DaysInMonth(year, month), 23, 59, 59);
+            var fullMonthSelected = false;
             var reservations =
                 Umbraco.TypedContentAtRoot()
                     .First(c => c.DocumentTypeAlias == "Rezerwacje")
@@ -298,13 +301,19 @@ Email: <b>{model.Email}</b>";
                     ?.Where(c => c.GetPropertyValue<string>("status") == "zaakceptowana")
                     ?.Select(
                         c =>
-                            new ReservationPeriod
+                        {
+                            var period = new ReservationPeriod
                             {
                                 Arrival = c.GetPropertyValue<DateTime>("dataPrzyjazdu"),
                                 Departure = c.GetPropertyValue<DateTime>("dataWyjazdu")
-                            })
-                    ?
-                    .Where(
+                            };
+                            if (period.Arrival < probeDateFirstDay && period.Departure > probeDateLastDay)
+                            {
+                                fullMonthSelected = true;
+                            }
+                            return period;
+                        })
+                    ?.Where(
                         d =>
                             (d.Arrival.Year == year && d.Arrival.Month == month) ||
                             (d.Departure.Year == year && d.Departure.Month == month))
@@ -313,63 +322,73 @@ Email: <b>{model.Email}</b>";
             {
                 return reservationStrings;
             }
-
-            // Unite reservations which have overlapping days.
-            var i = 0;
-            while (i < reservations.Count - 1)
+            if (fullMonthSelected)
             {
-                if (reservations[i].Departure.Date == reservations[i + 1].Arrival.Date)
+                var daysInMonth = DateTime.DaysInMonth(year, month);
+                for (var i = 1; i <= daysInMonth; i++)
                 {
-                    reservations[i].Departure = reservations[i + 1].Departure;
-                    reservations.RemoveAt(i + 1);
-                }
-                else
-                {
-                    i++;
+                    reservationStrings.Add($"\"{i}\": [0, 24]");
                 }
             }
-
-            foreach (var reservation in reservations)
+            else
             {
-                var firstDay = reservation.Arrival.Month == month ? reservation.Arrival.Day : 1;
-                var lastDay = reservation.Departure.Month == month
-                    ? reservation.Departure.Day
-                    : DateTime.DaysInMonth(year, month);
-                var isBorderedLeft = reservation.Arrival.Month != month;
-                var isBorderedRight = reservation.Departure.Month != month;
-                if (firstDay > lastDay)
+                // Unite reservations which have overlapping days.
+                var i = 0;
+                while (i < reservations.Count - 1)
                 {
-                    continue;
+                    if (reservations[i].Departure.Date == reservations[i + 1].Arrival.Date)
+                    {
+                        reservations[i].Departure = reservations[i + 1].Departure;
+                        reservations.RemoveAt(i + 1);
+                    }
+                    else
+                    {
+                        i++;
+                    }
                 }
-                if (firstDay == lastDay)
+
+                foreach (var reservation in reservations)
                 {
-                    if (reservation.Arrival.Hour > reservation.Departure.Hour)
+                    var firstDay = reservation.Arrival.Month == month ? reservation.Arrival.Day : 1;
+                    var lastDay = reservation.Departure.Month == month
+                        ? reservation.Departure.Day
+                        : DateTime.DaysInMonth(year, month);
+                    var isBorderedLeft = reservation.Arrival.Month != month;
+                    var isBorderedRight = reservation.Departure.Month != month;
+                    if (firstDay > lastDay)
                     {
                         continue;
                     }
-                    reservationStrings.Add($"\"{firstDay}\": [12, 12]");
-                }
-                else
-                {
-                    if (isBorderedLeft)
+                    if (firstDay == lastDay)
                     {
-                        reservationStrings.Add($"\"{firstDay}\": [0, 24]");
+                        if (reservation.Arrival.Hour > reservation.Departure.Hour)
+                        {
+                            continue;
+                        }
+                        reservationStrings.Add($"\"{firstDay}\": [12, 12]");
                     }
                     else
                     {
-                        reservationStrings.Add($"\"{firstDay}\": [12, 24]");
-                    }
-                    for (i = firstDay + 1; i < lastDay; i++)
-                    {
-                        reservationStrings.Add($"\"{i}\": [0, 24]");
-                    }
-                    if (isBorderedRight)
-                    {
-                        reservationStrings.Add($"\"{lastDay}\": [0, 24]");
-                    }
-                    else
-                    {
-                        reservationStrings.Add($"\"{lastDay}\": [0, 12]");
+                        if (isBorderedLeft)
+                        {
+                            reservationStrings.Add($"\"{firstDay}\": [0, 24]");
+                        }
+                        else
+                        {
+                            reservationStrings.Add($"\"{firstDay}\": [12, 24]");
+                        }
+                        for (i = firstDay + 1; i < lastDay; i++)
+                        {
+                            reservationStrings.Add($"\"{i}\": [0, 24]");
+                        }
+                        if (isBorderedRight)
+                        {
+                            reservationStrings.Add($"\"{lastDay}\": [0, 24]");
+                        }
+                        else
+                        {
+                            reservationStrings.Add($"\"{lastDay}\": [0, 12]");
+                        }
                     }
                 }
             }
