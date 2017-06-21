@@ -55,6 +55,10 @@ namespace NiebieskaWeranda.Controllers
             {
                 ModelState.AddModelError("DepartureDate", "Data przyjazdu nie może być póżniejsza od daty wyjazdu.");
             }
+            if (from == to)
+            {
+                ModelState.AddModelError("DepartureDate", "Data przyjazdu nie może być równa dacie wyjazdu.");
+            }
             if (from < DateTime.Now.AddDays(-1))
             {
                 ModelState.AddModelError("ArrivalDate", "Data przyjazdu musi być późniejsza niż wczorajsza.");
@@ -152,7 +156,7 @@ namespace NiebieskaWeranda.Controllers
                 {
                     numTo = to.Day;
                 }
-                sum += priceStrings.Skip(numFrom)
+                sum += priceStrings.Skip(numFrom-1)
                     .Take(numTo - numFrom)
                     .Select(c => decimal.Parse(c.Replace(",", "."), CultureInfo.InvariantCulture))
                     .Sum();

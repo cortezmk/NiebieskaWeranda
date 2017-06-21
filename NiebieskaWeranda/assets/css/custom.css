@@ -96,3 +96,15 @@ div .form-input {
     display: table-cell;
     width: 100%;
 }
+
+body .news-v3 p {
+    margin-bottom: 0;
+}
+
+body {
+    font-family: "Arial";
+}
+
+body h1, body h2, body h3, body h4, body h5, body h6 {
+    font-family: "Arial";
+}

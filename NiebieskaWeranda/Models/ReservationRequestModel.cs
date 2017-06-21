@@ -77,7 +77,7 @@ namespace NiebieskaWeranda.Models
         [UmbracoOptions(Alias = "iloscOsob")]
         public int NumberOfPersons { get; set; }
 
-        [Display(Name = "Dodatkowe informacje")]
+        [Display(Name = "Dodatkowe informacje / prośby do rezerwacji")]
         [DataType(DataType.MultilineText)]
         [UmbracoOptions(Alias = "dodatkoweInformacje")]
         public string Comments { get; set; }

@@ -24,6 +24,18 @@ function setPrice() {
     });
 }
 
+$('#ArrivalDate').change(function(value) {
+    var arrival = $(this).val();
+    var days = parseInt(arrival.substring(0, 2));
+    var months = parseInt(arrival.substring(3, 5));
+    var year = parseInt(arrival.substring(6, 10));
+    var date = new Date(year, months - 1, days + 1);
+    var dateString = date.getDate() > 9 ? (date.getDate() + '.') : ('0' + date.getDate() + '.');
+    dateString += (date.getMonth() + 1) > 9 ? ((date.getMonth() + 1) + '.') : ('0' + (date.getMonth() + 1) + '.');
+    dateString += date.getFullYear();
+    $('#DepartureDate').val(dateString);
+});
+
 $(function () {
     (function ($) {
         $.fn.goTo = function () {
