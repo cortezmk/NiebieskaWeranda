@@ -1,10 +1,11 @@
-$creds = cat ..\..\mkortas.webserwer.credentials.json | convertfrom-json
+#$creds = cat ..\..\mkortas.webserwer.credentials.json | convertfrom-json
+$creds = (cat ..\..\mkortas.ftp.credentials.json | convertfrom-json).smarterasp
 
 $ftp = $creds.server
 $user = $creds.user
 $password = $creds.password
 $localRoot = pwd
-$remoteRoot = "mkortas.webserwer.pl"
+$remoteRoot = "$($creds.url)/$($creds.rootFolder)"
 $webclient = New-Object System.Net.WebClient 
 
 $webclient.Credentials = New-Object System.Net.NetworkCredential($user,$password)
@@ -16,19 +17,19 @@ function recalculateHashes() {
 
 function getRemoteHashesFile() {
 	echo "downloading hashes file from ftp..."
-	$uri = New-Object System.Uri("$ftp/$remoteRoot/files.csv")
+	$uri = New-Object System.Uri("$remoteRoot/files.csv")
 	$webclient.downloadFile($uri, "$localRoot\files.remote.csv")
 }
 
 function uploadFile($path) {
 	write-host "uploading $path"
-	$uri = New-Object System.Uri("$ftp/$remoteRoot/$path")
+	$uri = New-Object System.Uri("$remoteRoot/$path")
 	$webclient.uploadFile($uri, "$localRoot\$path")
 }
 
 function deleteFile($path) {
 	write-host "deleting $path"
-	$uri = New-Object System.Uri("$ftp/$remoteRoot/$path")
+	$uri = New-Object System.Uri("$remoteRoot/$path")
 	$ftprequest = [System.Net.FtpWebRequest]::create($uri)
 	$ftprequest.Credentials =  New-Object System.Net.NetworkCredential($user, $password)
 	$ftprequest.Method = [System.Net.WebRequestMethods+Ftp]::DeleteFile
