@@ -45,8 +45,8 @@ function drawLegend(calendarDiv) {
     var legendEntries = [
         { start: 0, end: 0, content: 'wolne', price: '', priceDecimal: '' },
         { start: 0, end: 24, content: 'zajęte', price: '', priceDecimal: '' },
-        { start: 0, end: 12, content: 'zajęte', price: 'do 11', priceDecimal: '00' },
-        { start: 12, end: 24, content: 'zajęte', price: 'od 15', priceDecimal: '00' }
+        { start: 0, end: 12, content: 'zajęte', price: 'do 12', priceDecimal: '00' },
+        { start: 12, end: 24, content: 'zajęte', price: 'od 14', priceDecimal: '00' }
     ];
     for (var i = 0; i < legendEntries.length; i++) {
         var legendEntryDiv = $("<div class='legendEntry' style='width: 100%'></div>");

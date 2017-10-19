@@ -96,3 +96,7 @@ td.mce-item-selected, th.mce-item-selected {
 
 /* TINYMCE IMAGE RESIZING LIMITS */
 #mceResizeHandlen, #mceResizeHandles, #mceResizeHandlee, #mceResizeHandlew{display: none !important; visibility: hidden !important;}
+
+p{
+	margin: 0;
+}

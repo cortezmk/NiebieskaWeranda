@@ -213,8 +213,8 @@ namespace NiebieskaWeranda.Controllers
             var price = GetTotalPriceInner(model.ApartmentName, model.ArrivalDate, model.DepartureDate, model.NumberOfPersons);
             return $@"Nazwa apartamentu: <b>{model.ApartmentName}</b><br>
 Cena całkowita: <b>{price.TotalPrice} PLN</b><br>
-Data przyjazdu: <b>{model.ArrivalDate} godz. 15:00</b><br>
-Data wyjazdu: <b>{model.DepartureDate} godz. 11:00</b><br>
+Data przyjazdu: <b>{model.ArrivalDate} godz. 14:00</b><br>
+Data wyjazdu: <b>{model.DepartureDate} godz. 12:00</b><br>
 Liczba nocy: <b>{price.TotalNights}</b><br>
 Ilość osób: <b>{model.NumberOfPersons}</b><br>
 Dodatkowe informacje: <b>{model.Comments}</b><br>
@@ -276,13 +276,17 @@ Email: <b>{model.Email}</b>";
                 apartment
                     .Children.Where(c => c.DocumentTypeAlias == "Cena")
                     .Where(c => c.GetPropertyValue<DateTime>("dataDo") >= dateLower && c.GetPropertyValue<DateTime>("dataOd") <= dateUpper)
-                    .OrderBy(c => c.GetPropertyValue<DateTime>("dataDo") - c.GetPropertyValue<DateTime>("dataOd")).ToList();
+                    .OrderBy(c => c.GetPropertyValue<DateTime>("dataDo") - c.GetPropertyValue<DateTime>("dataOd"))
+                    .Select(c => new {Price = c.GetPropertyValue<string>("cena"),
+                        DayFrom = c.GetPropertyValue<DateTime>("dataOd") <= dateLower ? 1 : c.GetPropertyValue<DateTime>("dataOd").Day,
+                        DayTo = c.GetPropertyValue<DateTime>("dataDo") >= dateUpper ? DateTime.DaysInMonth(year, month) : c.GetPropertyValue<DateTime>("dataDo").Day
+                    }).ToList();
             var priceStrings = new List<string>();
             for (var i = 1; i <= DateTime.DaysInMonth(year, month); i++)
             {
-                var foundNode = priceNodes.FirstOrDefault(n => n.GetPropertyValue<DateTime>("dataDo").Day >= i &&
-                                               n.GetPropertyValue<DateTime>("dataOd").Day <= i);
-                priceStrings.Add(foundNode == null ? defaultPrice : foundNode.GetPropertyValue<string>("cena"));
+                var foundNode = priceNodes.FirstOrDefault(n => n.DayTo >= i &&
+                                               n.DayFrom <= i);
+                priceStrings.Add(foundNode == null ? defaultPrice : foundNode.Price);
             }
             return priceStrings;
         }

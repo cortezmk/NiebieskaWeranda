@@ -43,7 +43,8 @@
                             </div>
                             <div class="form-input">
                                 @Html.ValidationMessageFor(m => m.NumberOfPersons)
-                                <input class="text-box single-line" id="NumberOfPersons" name="NumberOfPersons" type="number" value="1" min="1" max="@Model.MaxNumPersons"/>
+@*                                <input class="text-box single-line" id="NumberOfPersons" name="NumberOfPersons" type="number" value="1" min="1" max="@Model.MaxNumPersons"/>*@
+                                @Html.DropDownListFor(m => m.NumberOfPersons, Utils.GetNumberList(Model.MaxNumPersons))
                             </div>
                         </div>
                     </div>

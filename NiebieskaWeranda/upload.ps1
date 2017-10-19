@@ -1,5 +1,5 @@
 #$creds = cat ..\..\mkortas.webserwer.credentials.json | convertfrom-json
-$creds = (cat ..\..\mkortas.ftp.credentials.json | convertfrom-json).smarterasp
+$creds = (cat ..\..\..\mkortas.ftp.credentials.json | convertfrom-json).smarteraspProd
 
 $ftp = $creds.server
 $user = $creds.user
@@ -12,11 +12,11 @@ $webclient.Credentials = New-Object System.Net.NetworkCredential($user,$password
 
 function recalculateHashes() {
 	echo "recalculating hashes..."
-	ls -r | ?{!$_.psiscontainer} | get-hash | select @{Name="Path"; Expression={resolve-path $_.Path -relative}}, HashString | export-csv ./files.csv
+	ls -r | ?{!$_.psiscontainer -and $_.name -ne "files.csv"} | get-hash | select @{Name="Path"; Expression={resolve-path $_.Path -relative}}, HashString | export-csv ./files.csv
 }`
 
 function getRemoteHashesFile() {
-	echo "downloading hashes file from ftp..."
+	echo "downloading hashes file from ftp... $remoteRoot/files.csv"
 	$uri = New-Object System.Uri("$remoteRoot/files.csv")
 	$webclient.downloadFile($uri, "$localRoot\files.remote.csv")
 }

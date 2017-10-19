@@ -212,5 +212,12 @@ namespace NiebieskaWeranda.Utils
             listItems.Where(s => s.Text == "Polska").ForEach(a => a.Selected = true);
             return listItems;
         }
+
+        public static IEnumerable<SelectListItem> GetNumberList(int maxNumPersons)
+        {
+            return Enumerable.Range(1, maxNumPersons)
+                .Select(n => n.ToString())
+                .Select(n => new SelectListItem {Text = n, Value = n, Selected = n == "1"});
+        }
     }
 }
